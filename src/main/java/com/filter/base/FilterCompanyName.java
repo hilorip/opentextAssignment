@@ -13,16 +13,7 @@ public class FilterCompanyName {
 	public static int userChoice;
 
 	public static void main(String[] args) {
-		Object companyData[][] = testUtil.getTestData("CompanyNames"); // get companies name via excel sheet 
-		List<String> companyList = new ArrayList<String>();
-		System.out.println("Available Company Names :");
-		for (int rowNum = 0; rowNum < companyData.length; rowNum++) {
-			for (int colNum = 0; colNum < companyData[0].length; colNum++) {
-
-				companyList.add((String) companyData[rowNum][colNum]);
-				System.out.println(rowNum + 1 + ". " + companyData[rowNum][colNum]); // printing available companies name for choice of selection
-			}
-		}
+		List<String> companyList = displayCompanyName();
 		for (int i = 0; i < 3; i++) {
 			System.out.println("Your Available Filter Choices Are: ");
 
@@ -36,40 +27,72 @@ public class FilterCompanyName {
 
 			try {
 				userChoice = scan.nextInt(); // geting user input choice except only numeric
-				filterCompanyName(userChoice, companyList); // calling fuction which filtering data
+			scan.nextLine();
+				if (userChoice <= 3) {
+					filterCompanyName(userChoice, companyList); // calling fuction which filtering data
+				}
+
+				else {
+					System.out.println("Please select in range of 1--> 3 for your choice");
+				}
+
 			} catch (Exception e) {
 				System.out.println("Exception occures please select valid number\n" + e);
 
 				break;
 			}
 		}
-
+scan.close();
 	}
-/**
- * 
- * @param userChoice
- * @param companyList
- * as per user choice and available company list fuction filter data 
- */
-	public  static void filterCompanyName(int userChoice, List<String> companyList) {
+
+	public static List<String> displayCompanyName() {
+		Object companyData[][] = testUtil.getTestData("CompanyNames"); // get companies name via excel sheet
+		List<String> companyList = new ArrayList<String>();
+		String s;
+		System.out.println("Available Company Names :");
+		for (int rowNum = 0; rowNum < companyData.length; rowNum++) {
+			for (int colNum = 0; colNum < companyData[0].length; colNum++) {
+				s = (String) companyData[rowNum][colNum];
+				if (!s.trim().isEmpty()) {
+					companyList.add(s.trim());
+					System.out.println(rowNum + 1 + ". " + s.trim()); // printing available companies
+																		// name for choice of selection
+				}
+			}
+
+		}
+		return companyList;
+	}
+
+	/**
+	 * 
+	 * @param userChoice
+	 * @param companyList as per user choice and available company list fuction
+	 *                    filter data
+	 */
+	public static void filterCompanyName(int userChoice, List<String> companyList) {
+
 		switch (userChoice) {
 		case 1:
 			System.out.println("Please Enter What Company You want to search for display: ");
-			String val = scan.next();
+			String val = scan.nextLine();
 			boolean flag = false;
-			System.out.println("val is " + val);
-			for (int i = 0; i < companyList.size(); i++) {
-				if (companyList.get(i).toLowerCase().replace(" ", "").contains(val.toLowerCase().replace(" ", ""))) {
-					flag = true;
-					System.out.println(companyList.get(i));
+			
+				System.out.println("val is " + val.replace(" ", ""));
+				for (int i = 0; i < companyList.size(); i++) {
+					if (companyList.get(i).toLowerCase().replace("\\s+", "")
+							.contains(val.toLowerCase().replace(" ", ""))) {
+						flag = true;
+						System.out.println(companyList.get(i));
+					}
 				}
-			}
-			if (flag != true) {
-				System.out.println("No Company Available As Per Your Input Selections as :" + val);
-			}
+				if (flag != true) {
+					System.out.println("No Company Available As Per Your Input Selections as :" + val);
+				}
+			
 			break;
 		case 2:
-			Collections.sort(companyList, new Comparator<String>() {
+			Collections.sort(companyList, new Comparator<String>() {// sorting string alphabetically 
 				@Override
 				public int compare(String s1, String s2) {
 					return s1.compareToIgnoreCase(s2);
@@ -80,7 +103,7 @@ public class FilterCompanyName {
 			}
 			break;
 		case 3:
-			Collections.sort(companyList, new Comparator<String>() {
+			Collections.sort(companyList, new Comparator<String>() { // sorting strin reverse aplhabet
 				@Override
 				public int compare(String s1, String s2) {
 					return -s1.compareToIgnoreCase(s2);
