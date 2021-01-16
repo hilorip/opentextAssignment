@@ -13,8 +13,8 @@ public class FilterCompanyName {
 	public static int userChoice;
 
 	public static void main(String[] args) {
-		List<String> companyList = displayCompanyName();
-		for (int i = 0; i < 3; i++) {
+		List<String> companyList = displayCompanyName(); // get company list
+		for (int i = 0; i < 3; i++) { // Ask user 3 times for their choice of input
 			System.out.println("Your Available Filter Choices Are: ");
 
 			System.out.println("1.By Company Name ");
@@ -27,7 +27,7 @@ public class FilterCompanyName {
 
 			try {
 				userChoice = scan.nextInt(); // geting user input choice except only numeric
-			scan.nextLine();
+				scan.nextLine();
 				if (userChoice <= 3) {
 					filterCompanyName(userChoice, companyList); // calling fuction which filtering data
 				}
@@ -42,11 +42,16 @@ public class FilterCompanyName {
 				break;
 			}
 		}
-scan.close();
+		scan.close(); // realase scanner object
 	}
 
+	/**
+	 * get companies name via excel sheet and returning list of companies
+	 * 
+	 * @return
+	 */
 	public static List<String> displayCompanyName() {
-		Object companyData[][] = testUtil.getTestData("CompanyNames"); // get companies name via excel sheet
+		Object companyData[][] = testUtil.getTestData("CompanyNames");
 		List<String> companyList = new ArrayList<String>();
 		String s;
 		System.out.println("Available Company Names :");
@@ -77,22 +82,21 @@ scan.close();
 			System.out.println("Please Enter What Company You want to search for display: ");
 			String val = scan.nextLine();
 			boolean flag = false;
-			
-				System.out.println("val is " + val.replace(" ", ""));
-				for (int i = 0; i < companyList.size(); i++) {
-					if (companyList.get(i).toLowerCase().replace("\\s+", "")
-							.contains(val.toLowerCase().replace(" ", ""))) {
-						flag = true;
-						System.out.println(companyList.get(i));
-					}
+
+			System.out.println("val is " + val.replace(" ", ""));
+			for (int i = 0; i < companyList.size(); i++) {
+				if (companyList.get(i).toLowerCase().replace("\\s+", "").contains(val.toLowerCase().replace(" ", ""))) {
+					flag = true;
+					System.out.println(companyList.get(i));
 				}
-				if (flag != true) {
-					System.out.println("No Company Available As Per Your Input Selections as :" + val);
-				}
-			
+			}
+			if (flag != true) {
+				System.out.println("No Company Available As Per Your Input Selections as :" + val);
+			}
+
 			break;
 		case 2:
-			Collections.sort(companyList, new Comparator<String>() {// sorting string alphabetically 
+			Collections.sort(companyList, new Comparator<String>() {// sorting string alphabetically
 				@Override
 				public int compare(String s1, String s2) {
 					return s1.compareToIgnoreCase(s2);
