@@ -14,7 +14,7 @@ public class FilterCompanyName {
 
 	public static void main(String[] args) {
 		List<String> companyList = displayCompanyName(); // get company list
-		for (int i = 0; i < 3; i++) { // Ask user 3 times for their choice of input
+		for (int i = 0; i < 15; i++) { // Ask user 3 times for their choice of input
 			System.out.println("Your Available Filter Choices Are: ");
 
 			System.out.println("1.By Company Name ");
@@ -36,7 +36,7 @@ public class FilterCompanyName {
 				}
 
 			} catch (Exception e) {
-				System.out.println("Exception occures please select valid number\n Run the program again " );
+				System.out.println("Exception occures please select valid number\n Run the program again ");
 
 				break;
 			}
@@ -81,10 +81,10 @@ public class FilterCompanyName {
 			System.out.println("Please Enter What Company You want to search for display: ");
 			String val = scan.nextLine();
 			boolean flag = false;
-
+			val = val.toLowerCase().replace(" ", "");
 			// System.out.println("val is " + val.replace(" ", ""));
 			for (int i = 0; i < companyList.size(); i++) {
-				if (companyList.get(i).toLowerCase().replace("\\s+", "").contains(val.toLowerCase().replace(" ", ""))) {
+				if (companyList.get(i).toLowerCase().replace("\\s+", "").contains(val)) {
 					flag = true;
 					System.out.println(companyList.get(i));
 				}
