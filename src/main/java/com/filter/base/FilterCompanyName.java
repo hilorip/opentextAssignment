@@ -26,23 +26,22 @@ public class FilterCompanyName {
 			System.out.println("Please Select your Filter Choice by press 1-3 : ");
 
 			try {
-				userChoice = scan.nextInt(); // geting user input choice except only numeric
+				userChoice = scan.nextInt(); // geting user input choice accept only numeric
 				scan.nextLine();
-				if (userChoice <= 3) {
+
+				if (userChoice == 0 || userChoice > 3) {
+					System.out.println("Please select in range of 1--> 3 for your choice");
+				} else if (userChoice <= 3) {
 					filterCompanyName(userChoice, companyList); // calling fuction which filtering data
 				}
 
-				else {
-					System.out.println("Please select in range of 1--> 3 for your choice");
-				}
-
 			} catch (Exception e) {
-				System.out.println("Exception occures please select valid number\n" + e);
+				System.out.println("Exception occures please select valid number\n Run the program again " );
 
 				break;
 			}
 		}
-		scan.close(); // realase scanner object
+		scan.close(); // release scanner object
 	}
 
 	/**
@@ -83,7 +82,7 @@ public class FilterCompanyName {
 			String val = scan.nextLine();
 			boolean flag = false;
 
-			System.out.println("val is " + val.replace(" ", ""));
+			// System.out.println("val is " + val.replace(" ", ""));
 			for (int i = 0; i < companyList.size(); i++) {
 				if (companyList.get(i).toLowerCase().replace("\\s+", "").contains(val.toLowerCase().replace(" ", ""))) {
 					flag = true;
@@ -98,8 +97,8 @@ public class FilterCompanyName {
 		case 2:
 			Collections.sort(companyList, new Comparator<String>() {// sorting string alphabetically
 				@Override
-				public int compare(String s1, String s2) {
-					return s1.compareToIgnoreCase(s2);
+				public int compare(String firstValue, String secondValue) {
+					return firstValue.compareToIgnoreCase(secondValue);
 				}
 			});
 			for (int i = 0; i < companyList.size(); i++) {
@@ -107,10 +106,10 @@ public class FilterCompanyName {
 			}
 			break;
 		case 3:
-			Collections.sort(companyList, new Comparator<String>() { // sorting strin reverse aplhabet
+			Collections.sort(companyList, new Comparator<String>() { // sorting string reverse aplhabet
 				@Override
-				public int compare(String s1, String s2) {
-					return -s1.compareToIgnoreCase(s2);
+				public int compare(String firstValue, String secondValue) {
+					return -firstValue.compareToIgnoreCase(secondValue);
 				}
 			});
 			for (int i = 0; i < companyList.size(); i++) {
