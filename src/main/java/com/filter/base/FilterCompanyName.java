@@ -15,7 +15,7 @@ public class FilterCompanyName {
 
 	public static void main(String[] args) {
 		List<String> companyList = displayCompanyName(); // get company list
-		for (int i = 0; i < 15; i++) { // Ask user 3 times for their choice of input
+		for (int i = 0; i < 15; i++) { // Ask user 12 times to run all testcases 
 			System.out.println("Your Available Filter Choices Are: ");
 
 			System.out.println("1.By Company Name ");
