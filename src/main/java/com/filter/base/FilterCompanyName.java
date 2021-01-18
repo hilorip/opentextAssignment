@@ -11,6 +11,7 @@ import com.filter.util.testUtil;
 public class FilterCompanyName {
 	public static Scanner scan = new Scanner(System.in);
 	public static int userChoice;
+	public static int count = 0;
 
 	public static void main(String[] args) {
 		List<String> companyList = displayCompanyName(); // get company list
@@ -30,7 +31,8 @@ public class FilterCompanyName {
 				scan.nextLine();
 
 				if (userChoice == 0 || userChoice > 3) {
-					System.out.println("Please select in range of 1--> 3 for your choice");
+					System.out.println(
+							userChoice + " is invalid choice ,Please select in range of 1--> 3 for your choice");
 				} else if (userChoice <= 3) {
 					filterCompanyName(userChoice, companyList); // calling fuction which filtering data
 				}
@@ -86,9 +88,11 @@ public class FilterCompanyName {
 			for (int i = 0; i < companyList.size(); i++) {
 				if (companyList.get(i).toLowerCase().replace("\\s+", "").contains(val)) {
 					flag = true;
-					System.out.println(companyList.get(i));
+					count = count + 1;
+					System.out.println(count + ". " + companyList.get(i));
 				}
 			}
+			count = 0;
 			if (flag != true) {
 				System.out.println("No Company Available As Per Your Input Selections as :" + val);
 			}
